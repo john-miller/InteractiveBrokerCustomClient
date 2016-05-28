@@ -1,51 +1,20 @@
-# EscapeRoute
-Software for the escape room industry
+# InteractiveBroker Custom Client
+Homebrew client for IB
 
 
-### Front end setup
-##### Install Node.js's NPM
-https://nodejs.org/en/
+### Setup
+	1. Login into TWS
+	2. Enable socket connections in TWS
 
-##### Create NPM init file
-###### This should only be done once!
 
-```
-npm init
-```
+### Login
 
-##### Install npm addons globally
+Client ID: 0
 
-```
-npm -G install grunt-cli grunt-contrib-concat grunt-contrib-watch bower yo generator-angular grunt-contrib-uglify
-```
+Host: localhost
 
-##### Create new angular project
-###### This should only be done once!
+Port: 7496
 
-```
-yo angular:app EscapeRoute
-```
+### Dashboard
 
-##### Create Controllers
 
-```
-yo angular:controller MyController
-```
-
-##### Create Directives
-
-```
-yo angular:controller MyDirective
-```
-
-##### Create Filters
-
-```
-yo angular:filter MyFilter
-```
-
-##### Create Route
-
-```
-yo angular:route MyRoute
-```
