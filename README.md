@@ -6,14 +6,10 @@ Homebrew client for IB
 	1. Login into TWS
 	2. Enable socket connections in TWS
 
-
 ### Login
-
-Client ID: 0
-
-Host: localhost
-
-Port: 7496
+	Client ID: 0
+	Host: localhost
+	Port: 7496
 
 ### Dashboard
 
