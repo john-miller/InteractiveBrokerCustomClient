@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.miller.ibcc.controller.AuthenticationController;
-import com.miller.ibcc.gui.ApplicationFrame.MenuBarItem;
 import com.miller.ibcc.gui.SwingContentInjector;
 
 public enum SwingDashboardForm implements DashboardForm {
@@ -15,16 +14,6 @@ public enum SwingDashboardForm implements DashboardForm {
 	INSTANCE;
 	
 	private JPanel pnlMain = new JPanel();
-	private MenuBarItem mnbPlaceOrder = new MenuBarItem(){
-		@Override
-		public String getName() {
-			return "Place Order";
-		}
-		@Override
-		public void onAction() {
-			
-		}
-	};
 	
 	private SwingDashboardForm() {
 		JButton btnLogout = new JButton("Logout");
@@ -39,7 +28,7 @@ public enum SwingDashboardForm implements DashboardForm {
 
 	@Override
 	public void display() {
-		SwingContentInjector.INSTANCE.injectContent(pnlMain, mnbPlaceOrder);
+		SwingContentInjector.INSTANCE.injectContent(pnlMain);
 	}
 	
 	

@@ -8,8 +8,12 @@ import com.miller.ibcc.domain.User;
 import com.miller.ibcc.event.GlobalEventHandler;
 import com.miller.ibcc.event.GlobalSignalEventHandler;
 import com.miller.ibcc.exception.AuthorizationException;
+import com.miller.ibcc.gui.ApplicationFrame;
+import com.miller.ibcc.gui.SwingApplicationFrame;
 import com.miller.ibcc.gui.login.ClientAuthForm;
 import com.miller.ibcc.gui.login.ClientAuthForm.ClientAuthListener;
+import com.miller.ibcc.gui.options.DashboardMenuBarItem;
+import com.miller.ibcc.gui.options.ReportMenuBarItem;
 import com.miller.ibcc.gui.login.SwingClientAuthForm;
 import com.miller.ibcc.domain.Error;
 
@@ -63,10 +67,14 @@ public enum AuthenticationController {
 		ClientAuthForm clientAuthForm = SwingClientAuthForm.INSTANCE;
 		
 		logger.info("Client auth form type: " + clientAuthForm.getClass());
-		
+	
 		clientAuthForm.setClientId(ApplicationSettingsController.INSTANCE.getSettingAsInt(Setting.CLIENT_ID));
 		clientAuthForm.setHost(ApplicationSettingsController.INSTANCE.getSetting(Setting.HOST));
 		clientAuthForm.setPort(ApplicationSettingsController.INSTANCE.getSettingAsInt(Setting.PORT));
+		
+		/* Set the third party menu items */
+		ApplicationFrame applicationFrame = SwingApplicationFrame.INSTANCE;
+		applicationFrame.setThirdPartyMenuBarItems();
 		
 		/* */
 		clientAuthForm.display(new ClientAuthListener() {

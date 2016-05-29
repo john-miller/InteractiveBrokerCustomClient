@@ -12,8 +12,6 @@ import javax.swing.border.TitledBorder;
 
 import com.miller.ibcc.domain.Error;
 import com.miller.ibcc.gui.SwingContentInjector;
-import com.miller.ibcc.gui.options.DashboardMenuBarItem;
-import com.miller.ibcc.gui.options.ReportMenuBarItem;
 
 public enum SwingErrorForm implements ErrorForm {
 	
@@ -34,7 +32,7 @@ public enum SwingErrorForm implements ErrorForm {
 		border.setTitle(error.getName());
 		lblErrorName.setText(error.getName());
 		
-		SwingContentInjector.INSTANCE.injectContent(pnlMain, ReportMenuBarItem.INSTANCE, DashboardMenuBarItem.INSTANCE);
+		SwingContentInjector.INSTANCE.injectContent(pnlMain);
 	}
 
 }

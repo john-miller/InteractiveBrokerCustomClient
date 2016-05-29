@@ -3,7 +3,6 @@ package com.miller.ibcc.gui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -62,7 +61,7 @@ public enum SwingApplicationFrame implements ApplicationFrame {
 	}
 
 	@Override
-	public void setThirdPartyMenuBarItems(Collection<MenuBarItem> menuBarItems) {
+	public void setThirdPartyMenuBarItems(MenuBarItem... menuBarItems) {
 		
 		/* Remove all third party menu items */
 		mnuOptions.removeAll();

@@ -1,7 +1,5 @@
 package com.miller.ibcc.gui;
 
-import java.util.Collection;
-
 /**
  * The frame of the application
  *
@@ -12,7 +10,7 @@ public interface ApplicationFrame {
 	
 	public void display();
 	
-	public void setThirdPartyMenuBarItems(Collection<MenuBarItem> menuBarItems);
+	public void setThirdPartyMenuBarItems(MenuBarItem... menuBarItems);
 	
 	public Object getContainer();
 	
