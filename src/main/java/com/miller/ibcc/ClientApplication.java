@@ -2,9 +2,7 @@ package com.miller.ibcc;
 
 import org.apache.log4j.Logger;
 
-import com.miller.ibcc.controller.AuthenticationController;
-import com.miller.ibcc.gui.ApplicationFrame;
-import com.miller.ibcc.gui.SwingApplicationFrame;
+import com.miller.ibcc.controller.ApplicationController;
 
 /**
  * Entry point for the application
@@ -18,12 +16,9 @@ public class ClientApplication {
 	
 	public static void main(String[] args) {
 		
-		logger.info("Displaying application frame");
-		ApplicationFrame applicationFrame = SwingApplicationFrame.INSTANCE;
-		applicationFrame.display();
-		
-		/* Authenticate the client */
-		AuthenticationController.INSTANCE.authenticateToDashboard();
+		logger.info("Starting the application with args: " + args);
+		/* Start the application */
+		ApplicationController.INSTANCE.start();
 		
 	}
 

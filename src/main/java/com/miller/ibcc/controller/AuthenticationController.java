@@ -7,9 +7,11 @@ import com.miller.ibcc.controller.ApplicationSettingsController.Setting;
 import com.miller.ibcc.domain.User;
 import com.miller.ibcc.event.GlobalEventHandler;
 import com.miller.ibcc.event.GlobalSignalEventHandler;
+import com.miller.ibcc.exception.AuthorizationException;
 import com.miller.ibcc.gui.login.ClientAuthForm;
 import com.miller.ibcc.gui.login.ClientAuthForm.ClientAuthListener;
 import com.miller.ibcc.gui.login.SwingClientAuthForm;
+import com.miller.ibcc.domain.Error;
 
 /**
  * Controller for user authentication
@@ -37,11 +39,18 @@ public enum AuthenticationController {
 			@Override
 			public void onCancel() {
 				logger.info("Client canceled authentication");
+				ApplicationController.INSTANCE.shutdown();
 			}
 			@Override
 			public void onAuth() {
 				logger.info("Client successfully authenticated");
 				DashboardController.INSTANCE.show();
+			}
+			@Override
+			public void onError(Throwable t) {
+				ErrorController.INSTANCE.displayError(new Error("Authorization Error", 
+						"Not sure what happened here", 
+						"Not sure what to do either"));
 			}
 		});
 	}
@@ -65,7 +74,11 @@ public enum AuthenticationController {
 			public void onAuth(int clientId, String host, int port) {
 				EClientSocketSSL eclientSSL = new EClientSocketSSL(GlobalEventHandler.getInstance(), GlobalSignalEventHandler.getInstance());
 				eclientSSL.eConnect(host, port, clientId);
-				listener.onAuth();
+				if(eclientSSL.isConnected()) {
+					listener.onAuth();
+				} else {
+					listener.onError(new AuthorizationException("Could not connect to TWS session"));
+				}
 			}
 			@Override
 			public void onCancel() {
@@ -80,6 +93,7 @@ public enum AuthenticationController {
 	
 	public interface AuthenticationControllerListener {
 		public void onAuth();
+		public void onError(Throwable t);
 		public void onCancel();
 	}
 

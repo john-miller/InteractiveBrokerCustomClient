@@ -39,6 +39,7 @@ public enum SwingClientAuthForm implements ClientAuthForm {
 	private JTextField txtClientId = new JTextField();
 	private JTextField txtHost = new JTextField();
 	private JTextField txtPort = new JTextField();
+	private ClientAuthListener currentListener;
 	
 	private SwingClientAuthForm() {
 		pnlInput.add(lblClientId);
@@ -53,15 +54,6 @@ public enum SwingClientAuthForm implements ClientAuthForm {
 		pnlMain.add(pnlInput, BorderLayout.CENTER);
 		pnlMain.add(pnlButtons, BorderLayout.SOUTH);
 		pnlMain.setBorder(BorderFactory.createTitledBorder("Login"));
-	}
-	
-	@Override
-	public void display(final ClientAuthListener listener) {
-		
-		ActionListener[] actionListeners = btnSignIn.getActionListeners();
-		
-		for(ActionListener actionListener : actionListeners)
-			btnSignIn.removeActionListener(actionListener);
 		
 		btnSignIn.addActionListener(new ActionListener() {
 			@Override
@@ -70,7 +62,7 @@ public enum SwingClientAuthForm implements ClientAuthForm {
 					@Override
 					public void run() {
 						try {
-							listener.onAuth(
+							currentListener.onAuth(
 									Integer.parseInt(txtClientId.getText()), 
 									txtHost.getText(), 
 									Integer.parseInt(txtPort.getText()));
@@ -82,6 +74,26 @@ public enum SwingClientAuthForm implements ClientAuthForm {
 			}
 		});
 		
+		btnCancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						currentListener.onCancel();
+					}
+				}).start();
+			}
+		});
+		
+	}
+	
+	@Override
+	public void display(final ClientAuthListener listener) {
+		
+		/* Set the current listener */
+		currentListener = listener;
+				
 		/* Inject content into frame */
 		SwingContentInjector.INSTANCE.injectContent(pnlMain);
 	}
