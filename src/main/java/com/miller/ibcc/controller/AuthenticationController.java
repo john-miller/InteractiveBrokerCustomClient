@@ -7,7 +7,7 @@ import com.miller.ibcc.event.GlobalEventHandler;
 import com.miller.ibcc.event.GlobalSignalEventHandler;
 import com.miller.ibcc.gui.login.ClientAuthForm;
 import com.miller.ibcc.gui.login.ClientAuthForm.ClientAuthListener;
-import com.miller.ibcc.gui.login.FXClientAuthForm;
+import com.miller.ibcc.gui.login.SwingClientAuthForm;
 
 /**
  * Controller for user authentication
@@ -23,8 +23,6 @@ public enum AuthenticationController {
 	
 	public boolean isAuthenticated() {
 		if(currentUser != null) {
-			
-			
 			return true;
 		} else {
 			return false;
@@ -33,12 +31,13 @@ public enum AuthenticationController {
 	
 	public void authenticate(AuthenticationControllerListener listener) {
 		
-		/*  */
-		ClientAuthForm clientAuthForm = FXClientAuthForm.getInstance();
+		/* Get a GUI instance */
+		ClientAuthForm clientAuthForm = SwingClientAuthForm.INSTANCE;
 		
 		clientAuthForm.setClientId(ApplicationSettingsController.getInstance().getSettingAsInt(Setting.CLIENT_ID));
 		clientAuthForm.setHost(ApplicationSettingsController.getInstance().getSetting(Setting.HOST));
 		clientAuthForm.setPort(ApplicationSettingsController.getInstance().getSettingAsInt(Setting.PORT));
+		
 		/* */
 		clientAuthForm.display(new ClientAuthListener() {
 			@Override

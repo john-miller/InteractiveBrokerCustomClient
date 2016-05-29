@@ -8,6 +8,8 @@ package com.miller.ibcc.gui;
  */
 public interface ApplicationFrame {
 	
-	public void initialize();
+	public void display();
+	
+	public Object getContainer();
 
 }

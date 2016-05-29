@@ -11,13 +11,15 @@ public enum FXApplicationFrame implements ApplicationFrame {
 	INSTANCE;
 
 	@Override
-	public void initialize() {
+	public void display() {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public static ApplicationFrame getInstance() {
-		return INSTANCE;
+
+	@Override
+	public Object getContainer() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

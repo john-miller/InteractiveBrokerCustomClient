@@ -23,6 +23,8 @@ public enum ApplicationSettingsController {
 	private void read() {
 		//TODO read the settings from somewher
 		settings.put(Setting.CLIENT_ID, "123456");
+		settings.put(Setting.HOST, "localhost");
+		settings.put(Setting.PORT, "7496");
 	}
 	
 	/**
