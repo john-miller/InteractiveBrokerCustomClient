@@ -1,5 +1,7 @@
 package com.miller.ibcc.controller;
 
+import org.apache.log4j.Logger;
+
 import com.ib.client.EClientSocketSSL;
 import com.miller.ibcc.controller.ApplicationSettingsController.Setting;
 import com.miller.ibcc.domain.User;
@@ -20,6 +22,7 @@ public enum AuthenticationController {
 	INSTANCE;
 
 	private User currentUser;
+	private Logger logger = Logger.getLogger(AuthenticationController.class);
 	
 	public boolean isAuthenticated() {
 		if(currentUser != null) {
@@ -29,14 +32,32 @@ public enum AuthenticationController {
 		}
 	}
 	
+	public void authenticateToDashboard() {
+		authenticate(new AuthenticationControllerListener() {
+			@Override
+			public void onCancel() {
+				logger.info("Client canceled authentication");
+			}
+			@Override
+			public void onAuth() {
+				logger.info("Client successfully authenticated");
+				DashboardController.INSTANCE.show();
+			}
+		});
+	}
+	
 	public void authenticate(AuthenticationControllerListener listener) {
+		
+		logger.info("Authenticating user");
 		
 		/* Get a GUI instance */
 		ClientAuthForm clientAuthForm = SwingClientAuthForm.INSTANCE;
 		
-		clientAuthForm.setClientId(ApplicationSettingsController.getInstance().getSettingAsInt(Setting.CLIENT_ID));
-		clientAuthForm.setHost(ApplicationSettingsController.getInstance().getSetting(Setting.HOST));
-		clientAuthForm.setPort(ApplicationSettingsController.getInstance().getSettingAsInt(Setting.PORT));
+		logger.info("Client auth form type: " + clientAuthForm.getClass());
+		
+		clientAuthForm.setClientId(ApplicationSettingsController.INSTANCE.getSettingAsInt(Setting.CLIENT_ID));
+		clientAuthForm.setHost(ApplicationSettingsController.INSTANCE.getSetting(Setting.HOST));
+		clientAuthForm.setPort(ApplicationSettingsController.INSTANCE.getSettingAsInt(Setting.PORT));
 		
 		/* */
 		clientAuthForm.display(new ClientAuthListener() {
@@ -61,8 +82,5 @@ public enum AuthenticationController {
 		public void onAuth();
 		public void onCancel();
 	}
-		
-	public static AuthenticationController getInstance() {
-		return INSTANCE;
-	}
+
 }
