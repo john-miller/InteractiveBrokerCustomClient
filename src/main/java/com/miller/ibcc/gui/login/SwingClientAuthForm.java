@@ -5,14 +5,16 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.miller.ibcc.gui.SwingApplicationFrame;
+import org.apache.log4j.Logger;
+
+import com.miller.ibcc.gui.SwingContentInjector;
 
 /**
  * Swing implementation of the login form
@@ -24,6 +26,7 @@ public enum SwingClientAuthForm implements ClientAuthForm {
 	
 	INSTANCE;
 	
+	private Logger logger = Logger.getLogger(SwingClientAuthForm.class);
 	private JPanel pnlMain = new JPanel(new BorderLayout());
 	private JPanel pnlInput = new JPanel(new GridLayout(3, 2));
 	private JPanel pnlButtons = new JPanel(new GridLayout(3, 1));
@@ -31,7 +34,7 @@ public enum SwingClientAuthForm implements ClientAuthForm {
 	private JButton btnCancel = new JButton("Cancel");
 	private JLabel lblClientId = new JLabel("Client Id");
 	private JLabel lblHost = new JLabel("Host");
-	private JCheckBox chbxSave = new JCheckBox();
+	private JCheckBox chbxSave = new JCheckBox("Remember Me");
 	private JLabel lblPort = new JLabel("Port");
 	private JTextField txtClientId = new JTextField();
 	private JTextField txtHost = new JTextField();
@@ -49,30 +52,38 @@ public enum SwingClientAuthForm implements ClientAuthForm {
 		pnlButtons.add(btnCancel);
 		pnlMain.add(pnlInput, BorderLayout.CENTER);
 		pnlMain.add(pnlButtons, BorderLayout.SOUTH);
+		pnlMain.setBorder(BorderFactory.createTitledBorder("Login"));
 	}
 	
 	@Override
 	public void display(final ClientAuthListener listener) {
+		
 		ActionListener[] actionListeners = btnSignIn.getActionListeners();
+		
 		for(ActionListener actionListener : actionListeners)
 			btnSignIn.removeActionListener(actionListener);
 		
 		btnSignIn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					listener.onAuth(
-							Integer.parseInt(txtClientId.getText()), 
-							txtHost.getText(), 
-							Integer.parseInt(txtPort.getText()));
-				} catch(NumberFormatException e2) {
-					e2.printStackTrace();
-				}
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							listener.onAuth(
+									Integer.parseInt(txtClientId.getText()), 
+									txtHost.getText(), 
+									Integer.parseInt(txtPort.getText()));
+						} catch(NumberFormatException e2) {
+							logger.error("Could not parse value", e2);
+						}
+					}
+				}).start();
 			}
 		});
 		
-		JFrame frmMain = (JFrame)SwingApplicationFrame.INSTANCE.getContainer();
-		frmMain.add(pnlMain);
+		/* Inject content into frame */
+		SwingContentInjector.INSTANCE.injectContent(pnlMain);
 	}
 
 	@Override

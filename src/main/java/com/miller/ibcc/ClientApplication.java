@@ -3,7 +3,6 @@ package com.miller.ibcc;
 import org.apache.log4j.Logger;
 
 import com.miller.ibcc.controller.AuthenticationController;
-import com.miller.ibcc.controller.AuthenticationController.AuthenticationControllerListener;
 import com.miller.ibcc.gui.ApplicationFrame;
 import com.miller.ibcc.gui.SwingApplicationFrame;
 
@@ -19,20 +18,12 @@ public class ClientApplication {
 	
 	public static void main(String[] args) {
 		
+		logger.info("Displaying application frame");
 		ApplicationFrame applicationFrame = SwingApplicationFrame.INSTANCE;
 		applicationFrame.display();
 		
 		/* Authenticate the client */
-		AuthenticationController.getInstance().authenticate(new AuthenticationControllerListener() {
-			@Override
-			public void onCancel() {
-				logger.info("Client canceled authentication");
-			}
-			@Override
-			public void onAuth() {
-				logger.info("Client successfully authenticated");
-			}
-		});
+		AuthenticationController.INSTANCE.authenticateToDashboard();
 		
 	}
 

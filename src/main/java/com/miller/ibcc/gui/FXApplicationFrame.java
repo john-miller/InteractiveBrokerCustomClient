@@ -1,5 +1,7 @@
 package com.miller.ibcc.gui;
 
+import java.util.Collection;
+
 /**
  * JavaFX implementation of the application frame
  *
@@ -20,6 +22,12 @@ public enum FXApplicationFrame implements ApplicationFrame {
 	public Object getContainer() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setThirdPartyMenuBarItems(Collection<MenuBarItem> menuBarItems) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
