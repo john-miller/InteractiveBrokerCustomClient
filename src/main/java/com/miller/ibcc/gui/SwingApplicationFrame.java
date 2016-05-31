@@ -10,6 +10,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import com.miller.ibcc.menu.MenuBarItem;
+
 /**
  * Swing implementation of the application frame
  *
