@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.miller.ibcc.controller.AuthenticationController;
-import com.miller.ibcc.gui.SwingContentInjector;
+import com.miller.ibcc.gui.injector.SwingContentInjector;
 
 public enum SwingDashboardForm implements DashboardForm {
 	
