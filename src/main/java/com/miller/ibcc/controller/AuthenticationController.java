@@ -4,18 +4,21 @@ import org.apache.log4j.Logger;
 
 import com.ib.client.EClientSocketSSL;
 import com.miller.ibcc.controller.ApplicationSettingsController.Setting;
+import com.miller.ibcc.domain.Error;
 import com.miller.ibcc.domain.User;
 import com.miller.ibcc.event.GlobalEventHandler;
 import com.miller.ibcc.event.GlobalSignalEventHandler;
 import com.miller.ibcc.exception.AuthorizationException;
 import com.miller.ibcc.gui.ApplicationFrame;
-import com.miller.ibcc.gui.SwingApplicationFrame;
+import com.miller.ibcc.gui.FXApplicationFrame;
 import com.miller.ibcc.gui.login.ClientAuthForm;
 import com.miller.ibcc.gui.login.ClientAuthForm.ClientAuthListener;
-import com.miller.ibcc.gui.options.DashboardMenuBarItem;
-import com.miller.ibcc.gui.options.ReportMenuBarItem;
+import com.miller.ibcc.menu.MenuBarItem;
+import com.miller.ibcc.menu.file.FileMenuBarItem;
+import com.miller.ibcc.menu.options.AbstractOptionsMenu;
+import com.miller.ibcc.menu.options.DashboardMenuBarItem;
+import com.miller.ibcc.menu.options.HelpMenuBarItem;
 import com.miller.ibcc.gui.login.SwingClientAuthForm;
-import com.miller.ibcc.domain.Error;
 
 /**
  * Controller for user authentication
@@ -73,8 +76,13 @@ public enum AuthenticationController {
 		clientAuthForm.setPort(ApplicationSettingsController.INSTANCE.getSettingAsInt(Setting.PORT));
 		
 		/* Set the third party menu items */
-		ApplicationFrame applicationFrame = SwingApplicationFrame.INSTANCE;
-		applicationFrame.setThirdPartyMenuBarItems();
+		ApplicationFrame applicationFrame = FXApplicationFrame.INSTANCE;
+		applicationFrame.setThirdPartyMenuBarItems(FileMenuBarItem.INSTANCE, HelpMenuBarItem.INSTANCE, new AbstractOptionsMenu() {
+			@Override
+			public MenuBarItem[] getSubMenus() {
+				return new MenuBarItem[]{ DashboardMenuBarItem.INSTANCE };
+			}
+		});
 		
 		/* */
 		clientAuthForm.display(new ClientAuthListener() {
