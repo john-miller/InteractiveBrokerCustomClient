@@ -3,7 +3,7 @@ package com.miller.ibcc.controller;
 import org.apache.log4j.Logger;
 
 import com.miller.ibcc.gui.ApplicationFrame;
-import com.miller.ibcc.gui.SwingApplicationFrame;
+import com.miller.ibcc.gui.FXApplicationFrame;
 
 public enum ApplicationController {
 	
@@ -22,7 +22,7 @@ public enum ApplicationController {
 	
 	public void start() {
 		logger.info("Displaying application frame");
-		ApplicationFrame applicationFrame = SwingApplicationFrame.INSTANCE;
+		ApplicationFrame applicationFrame = FXApplicationFrame.INSTANCE;
 		applicationFrame.display();
 		
 		/* Authenticate the client */
