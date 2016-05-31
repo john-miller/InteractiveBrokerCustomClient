@@ -15,6 +15,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<jdk.version>1.8</jdk.version>
+		<downloadSources>true</downloadSources>
+        <downloadJavadocs>true</downloadJavadocs>
 		<!-- The main class to start by executing java -jar -->
     	<start-class>com.miller.ibcc.ClientApplication</start-class>
 	</properties>
