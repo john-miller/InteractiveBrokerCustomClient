@@ -1,10 +1,10 @@
 package com.miller.ibcc.controller;
 
 import com.miller.ibcc.gui.ApplicationFrame;
-import com.miller.ibcc.gui.SwingApplicationFrame;
+import com.miller.ibcc.gui.FXApplicationFrame;
 import com.miller.ibcc.gui.dashboard.DashboardForm;
-import com.miller.ibcc.gui.dashboard.SwingDashboardForm;
-import com.miller.ibcc.gui.options.PlaceOrderMenuBarItem;
+import com.miller.ibcc.gui.dashboard.FXDashboardForm;
+import com.miller.ibcc.menu.options.PlaceOrderMenuBarItem;
 
 public enum DashboardController {
 	
@@ -12,10 +12,10 @@ public enum DashboardController {
 	
 	public void show() {
 		
-		DashboardForm dashboardForm = SwingDashboardForm.INSTANCE;
+		DashboardForm dashboardForm = FXDashboardForm.INSTANCE;
 		dashboardForm.display();
 
-		ApplicationFrame applicationFrame = SwingApplicationFrame.INSTANCE;
+		ApplicationFrame applicationFrame = FXApplicationFrame.INSTANCE;
 		applicationFrame.setThirdPartyMenuBarItems(PlaceOrderMenuBarItem.INSTANCE);
 		
 	}
