@@ -11,7 +11,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import com.miller.ibcc.domain.Error;
-import com.miller.ibcc.gui.SwingContentInjector;
+import com.miller.ibcc.gui.injector.SwingContentInjector;
 
 public enum SwingErrorForm implements ErrorForm {
 	
