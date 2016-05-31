@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
 
-import com.miller.ibcc.gui.SwingContentInjector;
+import com.miller.ibcc.gui.injector.SwingContentInjector;
 
 /**
  * Swing implementation of the login form
