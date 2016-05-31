@@ -1,11 +1,13 @@
-package com.miller.ibcc.gui;
+package com.miller.ibcc.gui.injector;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
 
 import javax.swing.JPanel;
 
-public enum SwingContentInjector {
+import com.miller.ibcc.gui.SwingApplicationFrame;
+
+public enum SwingContentInjector implements ContentInjector<Component>{
 	
 	INSTANCE;
 	

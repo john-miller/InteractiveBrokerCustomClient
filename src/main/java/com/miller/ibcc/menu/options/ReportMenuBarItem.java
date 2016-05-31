@@ -1,8 +1,8 @@
-package com.miller.ibcc.gui.options;
+package com.miller.ibcc.menu.options;
 
 import org.apache.log4j.Logger;
 
-import com.miller.ibcc.gui.ApplicationFrame.MenuBarItem;
+import com.miller.ibcc.menu.MenuBarItem;
 
 /**
  * Reports a problem
@@ -25,6 +25,11 @@ public enum ReportMenuBarItem implements MenuBarItem {
 	public void onAction() {
 		//TODO figure out what to do here
 		logger.info("User reported problem");
+	}
+
+	@Override
+	public MenuBarItem[] getSubMenus() {
+		return new MenuBarItem[]{};
 	}
 
 }

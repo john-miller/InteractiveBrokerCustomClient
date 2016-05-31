@@ -1,8 +1,8 @@
-package com.miller.ibcc.gui.options;
+package com.miller.ibcc.menu.options;
 
 import org.apache.log4j.Logger;
 
-import com.miller.ibcc.gui.ApplicationFrame.MenuBarItem;
+import com.miller.ibcc.menu.MenuBarItem;
 
 public enum PlaceOrderMenuBarItem implements MenuBarItem {
 
@@ -19,6 +19,11 @@ public enum PlaceOrderMenuBarItem implements MenuBarItem {
 	public void onAction() {
 		logger.info("User placing order");
 		
+	}
+
+	@Override
+	public MenuBarItem[] getSubMenus() {
+		return new MenuBarItem[]{};
 	}
 
 }
