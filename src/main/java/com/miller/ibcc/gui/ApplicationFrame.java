@@ -1,5 +1,7 @@
 package com.miller.ibcc.gui;
 
+import com.miller.ibcc.menu.MenuBarItem;
+
 /**
  * The frame of the application
  *
@@ -14,9 +16,4 @@ public interface ApplicationFrame {
 	
 	public Object getContainer();
 	
-	public interface MenuBarItem {
-		public String getName();
-		public void onAction();
-	}
-
 }

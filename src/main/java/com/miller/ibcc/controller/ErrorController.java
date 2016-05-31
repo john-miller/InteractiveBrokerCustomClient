@@ -5,8 +5,8 @@ import com.miller.ibcc.gui.ApplicationFrame;
 import com.miller.ibcc.gui.SwingApplicationFrame;
 import com.miller.ibcc.gui.error.ErrorForm;
 import com.miller.ibcc.gui.error.SwingErrorForm;
-import com.miller.ibcc.gui.options.DashboardMenuBarItem;
-import com.miller.ibcc.gui.options.ReportMenuBarItem;
+import com.miller.ibcc.menu.options.DashboardMenuBarItem;
+import com.miller.ibcc.menu.options.ReportMenuBarItem;
 
 public enum ErrorController {
 	
