@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="loginFormContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<children><TextField fx:id="txtClientId" layoutX="210.5" layoutY="95.5" promptText="Client Id" /><Label layoutX="210.5" layoutY="74.5" prefHeight="17.0" prefWidth="149.0" text="Client Id" /><Label layoutX="210.5" layoutY="133.0" prefHeight="17.0" prefWidth="149.0" text="Port" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" /><TextField fx:id="txtPort" layoutX="210.5" layoutY="154.5" promptText="Port" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" /><Label layoutX="210.5" layoutY="189.0" prefHeight="17.0" prefWidth="149.0" text="Host" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" /><TextField fx:id="txtHost" layoutX="210.5" layoutY="210.5" promptText="Host" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" /><Button fx:id="btnLogin" layoutX="210.5" layoutY="245.5" mnemonicParsing="false" onAction="#login" prefHeight="48.0" prefWidth="149.0" text="Login" /><Button fx:id="btnCancel" layoutX="210.0" layoutY="300.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="149.0" text="Cancel" />
+</children>
+</AnchorPane>
