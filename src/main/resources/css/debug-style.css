@@ -1,0 +1,17 @@
+Label {
+	-fx-border-style: line;
+	-fx-border-width: 1px;
+	-fx-border-color: yellow;
+}
+
+BorderPane {
+	-fx-border-style: line;
+	-fx-border-width: 1px;
+	-fx-border-color: red;
+}
+
+AnchorPane {
+	-fx-border-style: line;
+	-fx-border-width: 1px;
+	-fx-border-color: purple;
+}
