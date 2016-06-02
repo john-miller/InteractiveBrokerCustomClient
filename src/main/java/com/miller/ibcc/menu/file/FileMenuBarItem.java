@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import com.miller.ibcc.controller.DashboardController;
 import com.miller.ibcc.menu.MenuBarItem;
-import com.miller.ibcc.menu.options.HelpMenuBarItem;
 
 /**
  * Will attempt to show the dashboard
@@ -31,10 +30,7 @@ public enum FileMenuBarItem implements MenuBarItem {
 
 	@Override
 	public MenuBarItem[] getSubMenus() {
-		return new MenuBarItem[]{HelpMenuBarItem.INSTANCE, ExitMenuBarItem.INSTANCE};
+		return new MenuBarItem[]{ExitMenuBarItem.INSTANCE};
 	}
-	
-	
-	
 
 }

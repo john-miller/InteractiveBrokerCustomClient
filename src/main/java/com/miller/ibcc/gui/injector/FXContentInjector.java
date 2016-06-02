@@ -3,6 +3,7 @@ package com.miller.ibcc.gui.injector;
 import org.apache.log4j.Logger;
 
 import com.miller.ibcc.gui.FXApplicationFrame;
+import com.sun.javafx.application.PlatformImpl;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -20,9 +21,17 @@ public enum FXContentInjector implements ContentInjector<Pane> {
 	private Logger logger = Logger.getLogger(FXContentInjector.class);
 	
 	public void injectContent(Pane pane) {
-		logger.info("Injecting " + pane);
-		BorderPane borderPane = (BorderPane) FXApplicationFrame.INSTANCE.getContainer();
-		borderPane.setCenter(pane);
+		PlatformImpl.runAndWait(new Runnable() {
+			@Override
+			public void run() {
+				logger.info("Injecting " + pane);
+				BorderPane borderPane = (BorderPane) FXApplicationFrame.INSTANCE.getContainer();
+				pane.prefWidthProperty().bind(borderPane.widthProperty());
+				pane.prefHeightProperty().bind(borderPane.heightProperty().subtract(borderPane.getTop().getBoundsInParent().getHeight()));
+				borderPane.setCenter(pane);
+			}
+		});
 	}
+
 
 }

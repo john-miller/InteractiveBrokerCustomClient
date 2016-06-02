@@ -1,5 +1,21 @@
 package com.miller.ibcc.gui.login;
 
+import java.io.IOException;
+
+import org.apache.log4j.Logger;
+
+import com.miller.ibcc.gui.FXApplicationFrame;
+import com.miller.ibcc.gui.injector.FXContentInjector;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+
 /**
  * JavaFX implementation of the login form
  *
@@ -10,62 +26,101 @@ public enum FXClientAuthForm implements ClientAuthForm {
 	
 	INSTANCE;
 	
-	public static ClientAuthForm getInstance() {
-		return INSTANCE;
+	private BooleanProperty propSave = new SimpleBooleanProperty(false);
+	private StringProperty propPort = new SimpleStringProperty();
+	private StringProperty propClientId = new SimpleStringProperty();
+	private StringProperty propHost = new SimpleStringProperty();
+	private Logger logger = Logger.getLogger(FXClientAuthForm.class);
+	private AnchorPane pane;
+	private ClientAuthListener currentListener;
+	@FXML
+	private TextField txtClientId;
+	@FXML
+	private TextField txtHost;
+	@FXML
+	private TextField txtPort;
+	
+	private FXClientAuthForm() {
+		try {
+			FXMLLoader loader = new FXMLLoader(FXApplicationFrame.class.getResource("/fxml/login-form.fxml"));
+			loader.setController(this);
+			pane = loader.load();
+			txtClientId.textProperty().bindBidirectional(propClientId);
+			txtHost.textProperty().bindBidirectional(propHost);
+			txtPort.textProperty().bindBidirectional(propPort);
+		} catch (IOException e) {
+			logger.error("Could not load FXML document", e);
+		} catch(IllegalStateException e) {
+			logger.error("Could not load FXML document", e);
+		}
 	}
-
+	
 	@Override
 	public void display(ClientAuthListener listener) {
-		// TODO Auto-generated method stub
-		
+		this.currentListener = listener;
+		FXContentInjector.INSTANCE.injectContent(pane);
 	}
 
 	@Override
 	public boolean isSave() {
-		// TODO Auto-generated method stub
-		return false;
+		return propSave.get();
 	}
 
 	@Override
 	public void setSave(boolean save) {
-		// TODO Auto-generated method stub
-		
+		propSave.set(save);
 	}
 
 	@Override
 	public int getPort() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Integer.parseInt(propPort.get());
 	}
 
 	@Override
 	public void setPort(int port) {
-		// TODO Auto-generated method stub
-		
+		propPort.set(String.valueOf(port));
 	}
 
 	@Override
 	public int getClientId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Integer.parseInt(propClientId.get());
 	}
 
 	@Override
 	public void setClientId(int clientId) {
-		// TODO Auto-generated method stub
-		
+		propClientId.set(String.valueOf(clientId));
 	}
 
 	@Override
 	public String getHost() {
-		// TODO Auto-generated method stub
-		return null;
+		return propHost.get();
 	}
 
 	@Override
 	public void setHost(String host) {
-		// TODO Auto-generated method stub
-		
+		propHost.set(host);
+	}
+	
+	@FXML
+	public void login() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if(currentListener != null) 
+					currentListener.onAuth(getClientId(), getHost(), getPort());
+			}
+		}).start();
+	}
+	
+	@FXML
+	public void cancel() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if(currentListener != null)
+					currentListener.onCancel();
+			}
+		}).start();
 	}
 	
 	

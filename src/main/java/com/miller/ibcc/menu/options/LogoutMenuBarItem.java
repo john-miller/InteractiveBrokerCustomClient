@@ -2,6 +2,7 @@ package com.miller.ibcc.menu.options;
 
 import org.apache.log4j.Logger;
 
+import com.miller.ibcc.controller.AuthenticationController;
 import com.miller.ibcc.menu.MenuBarItem;
 
 public enum LogoutMenuBarItem implements MenuBarItem {
@@ -18,6 +19,7 @@ public enum LogoutMenuBarItem implements MenuBarItem {
 	@Override
 	public void onAction() {
 		logger.info("User logged out");
+		AuthenticationController.INSTANCE.authenticateToDashboard();
 	}
 
 	@Override

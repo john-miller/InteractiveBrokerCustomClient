@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.miller.ibcc.menu.MenuBarItem;
 import com.sun.javafx.application.PlatformImpl;
+import com.sun.javafx.application.PlatformImpl.FinishListener;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -58,34 +59,46 @@ public enum FXApplicationFrame implements ApplicationFrame {
 		});
 		
 		logger.info("Setting up resources");
-		PlatformImpl.runLater(new Runnable() {
+		PlatformImpl.addListener(new FinishListener() {
 			@Override
-			public void run() {
-				logger.info("Creating stage");
-
-				try {
-					FXMLLoader loader = new FXMLLoader(FXApplicationFrame.class.getResource("/fxml/application-frame.fxml"));
-					loader.setController(FXApplicationFrame.INSTANCE);
-					pane = loader.load();
-					primaryStage = new Stage();
-					menuBar.getMenus().add(optionsMenu);
-					scene = new Scene(pane);
-					primaryStage.setScene(scene);
-					primaryStage.opacityProperty().bind(visibleProperty);
-					primaryStage.show();
-				} catch (IOException e) {
-					logger.error("Could not load FXML document", e);
-				} catch(IllegalStateException e) {
-					logger.error("Could not load FXML document", e);
-				}
-			} 
+			public void idle(boolean arg0) {
+				logger.info("Platform is idle");
+			}
+			@Override
+			public void exitCalled() {
+				logger.info("Platform exit has been initiated");
+			}
 		});
+			
+		logger.info("Loading stage fxml document");
+
+		try {
+			FXMLLoader loader = new FXMLLoader(FXApplicationFrame.class.getResource("/fxml/application-frame.fxml"));
+			loader.setController(this);
+			pane = loader.load();
+		} catch (IOException e) {
+			logger.error("Could not load FXML document", e);
+		} catch(IllegalStateException e) {
+			logger.error("Could not load FXML document", e);
+		}
+	
 	}
 	
 	@Override
 	public void display() {
-		logger.info("Showing primary stage");
-		visibleProperty.set(1);
+		PlatformImpl.runAndWait(new Runnable() {
+			@Override
+			public void run() {
+				logger.info("Showing primary stage");
+				visibleProperty.set(1);
+				primaryStage = new Stage();
+				menuBar.getMenus().add(optionsMenu);
+				scene = new Scene(pane);
+				scene.getStylesheets().add(FXApplicationFrame.class.getResource("/css/default-style.css").toExternalForm());
+				primaryStage.setScene(scene);
+				primaryStage.show();
+			}
+		});
 	}
 
 	@Override

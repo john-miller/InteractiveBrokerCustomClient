@@ -13,12 +13,13 @@ import com.miller.ibcc.gui.ApplicationFrame;
 import com.miller.ibcc.gui.FXApplicationFrame;
 import com.miller.ibcc.gui.login.ClientAuthForm;
 import com.miller.ibcc.gui.login.ClientAuthForm.ClientAuthListener;
+import com.miller.ibcc.gui.login.FXClientAuthForm;
 import com.miller.ibcc.menu.MenuBarItem;
 import com.miller.ibcc.menu.file.FileMenuBarItem;
+import com.miller.ibcc.menu.help.DashboardHelpMenuBarItem;
 import com.miller.ibcc.menu.options.AbstractOptionsMenu;
 import com.miller.ibcc.menu.options.DashboardMenuBarItem;
-import com.miller.ibcc.menu.options.HelpMenuBarItem;
-import com.miller.ibcc.gui.login.SwingClientAuthForm;
+import com.miller.ibcc.menu.options.AbstractHelpMenuBarItem;
 
 /**
  * Controller for user authentication
@@ -32,6 +33,18 @@ public enum AuthenticationController {
 
 	private User currentUser;
 	private Logger logger = Logger.getLogger(AuthenticationController.class);
+	private MenuBarItem optionsMenu = new AbstractOptionsMenu() {
+		@Override
+		public MenuBarItem[] getSubMenus() {
+			return new MenuBarItem[]{ DashboardMenuBarItem.INSTANCE };
+		}
+	};
+	private MenuBarItem helpMenu = new AbstractHelpMenuBarItem() {
+		@Override
+		public MenuBarItem[] getOptionalHelpMenus() {
+			return new MenuBarItem[]{ DashboardHelpMenuBarItem.INSTANCE };
+		}
+	};
 	
 	public boolean isAuthenticated() {
 		if(currentUser != null) {
@@ -67,7 +80,7 @@ public enum AuthenticationController {
 		logger.info("Authenticating user");
 		
 		/* Get a GUI instance */
-		ClientAuthForm clientAuthForm = SwingClientAuthForm.INSTANCE;
+		ClientAuthForm clientAuthForm = FXClientAuthForm.INSTANCE;
 		
 		logger.info("Client auth form type: " + clientAuthForm.getClass());
 	
@@ -77,12 +90,7 @@ public enum AuthenticationController {
 		
 		/* Set the third party menu items */
 		ApplicationFrame applicationFrame = FXApplicationFrame.INSTANCE;
-		applicationFrame.setThirdPartyMenuBarItems(FileMenuBarItem.INSTANCE, HelpMenuBarItem.INSTANCE, new AbstractOptionsMenu() {
-			@Override
-			public MenuBarItem[] getSubMenus() {
-				return new MenuBarItem[]{ DashboardMenuBarItem.INSTANCE };
-			}
-		});
+		applicationFrame.setThirdPartyMenuBarItems(FileMenuBarItem.INSTANCE, optionsMenu, helpMenu);
 		
 		/* */
 		clientAuthForm.display(new ClientAuthListener() {
