@@ -5,7 +5,19 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane fx:id="dashboardContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label layoutX="204.0" layoutY="163.0" text="Dashboard" textAlignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0" />
+   <children><BorderPane fx:id="" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<top><FlowPane prefHeight="200.0" prefWidth="200.0">
+<children><Label text="Balance" />
+</children></FlowPane>
+</top>
+<right><BorderPane prefHeight="375.0" prefWidth="200.0">
+<center><TableView prefHeight="200.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml">
+  <columns>
+    <TableColumn prefWidth="75.0" text="C1" />
+    <TableColumn prefWidth="75.0" text="C2" />
+  </columns>
+</TableView>
+</center></BorderPane>
+</right></BorderPane>
    </children>
 </AnchorPane>
