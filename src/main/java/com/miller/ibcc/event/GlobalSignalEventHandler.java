@@ -7,10 +7,6 @@ import com.ib.client.EReaderSignal;
 public enum GlobalSignalEventHandler implements EReaderSignal {
 	
 	INSTANCE;
-
-	public static EReaderSignal getInstance() {
-		return INSTANCE;
-	}
 	
 	private final Logger logger = Logger.getLogger(GlobalSignalEventHandler.class);
 	
