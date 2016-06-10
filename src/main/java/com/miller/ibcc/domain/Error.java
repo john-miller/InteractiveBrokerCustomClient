@@ -45,4 +45,10 @@ public class Error {
 		this.resolutionsSteps = resolutionsSteps;
 	}
 
+	@Override
+	public String toString() {
+		return "Error [name=" + name + ", description=" + description + ", resolutionsSteps=" + resolutionsSteps + "]";
+	}
+
+
 }
