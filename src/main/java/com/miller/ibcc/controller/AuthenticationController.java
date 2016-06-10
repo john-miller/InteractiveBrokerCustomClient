@@ -2,13 +2,9 @@ package com.miller.ibcc.controller;
 
 import org.apache.log4j.Logger;
 
-import com.ib.client.EClientSocketSSL;
 import com.miller.ibcc.controller.ApplicationSettingsController.Setting;
 import com.miller.ibcc.domain.Error;
 import com.miller.ibcc.domain.User;
-import com.miller.ibcc.event.GlobalEventHandler;
-import com.miller.ibcc.event.GlobalSignalEventHandler;
-import com.miller.ibcc.exception.AuthorizationException;
 import com.miller.ibcc.gui.ApplicationFrame;
 import com.miller.ibcc.gui.FXApplicationFrame;
 import com.miller.ibcc.gui.login.ClientAuthForm;
@@ -17,9 +13,10 @@ import com.miller.ibcc.gui.login.FXClientAuthForm;
 import com.miller.ibcc.menu.MenuBarItem;
 import com.miller.ibcc.menu.file.FileMenuBarItem;
 import com.miller.ibcc.menu.help.DashboardHelpMenuBarItem;
-import com.miller.ibcc.menu.options.AbstractOptionsMenu;
-import com.miller.ibcc.menu.options.DashboardMenuBarItem;
 import com.miller.ibcc.menu.options.AbstractHelpMenuBarItem;
+import com.miller.ibcc.menu.options.AbstractOptionsMenu;
+import com.miller.ibcc.service.TWSConnectionClientService;
+import com.miller.ibcc.service.TWSConnectionClientService.ConnectionListener;
 
 /**
  * Controller for user authentication
@@ -36,9 +33,10 @@ public enum AuthenticationController {
 	private MenuBarItem optionsMenu = new AbstractOptionsMenu() {
 		@Override
 		public MenuBarItem[] getSubMenus() {
-			return new MenuBarItem[]{ DashboardMenuBarItem.INSTANCE };
+			return new MenuBarItem[]{};
 		}
 	};
+	
 	private MenuBarItem helpMenu = new AbstractHelpMenuBarItem() {
 		@Override
 		public MenuBarItem[] getOptionalHelpMenus() {
@@ -75,7 +73,7 @@ public enum AuthenticationController {
 		});
 	}
 	
-	public void authenticate(AuthenticationControllerListener listener) {
+	public void authenticate(final AuthenticationControllerListener listener) {
 		
 		logger.info("Authenticating user");
 		
@@ -95,14 +93,23 @@ public enum AuthenticationController {
 		/* */
 		clientAuthForm.display(new ClientAuthListener() {
 			@Override
-			public void onAuth(int clientId, String host, int port) {
-				EClientSocketSSL eclientSSL = new EClientSocketSSL(GlobalEventHandler.getInstance(), GlobalSignalEventHandler.getInstance());
-				eclientSSL.eConnect(host, port, clientId);
-				if(eclientSSL.isConnected()) {
-					listener.onAuth();
-				} else {
-					listener.onError(new AuthorizationException("Could not connect to TWS session"));
-				}
+			public void onAuth(final int clientId, final String host, final int port) {
+				
+				ApplicationSettingsController.INSTANCE.setSetting(Setting.CLIENT_ID, clientId);
+				ApplicationSettingsController.INSTANCE.setSetting(Setting.HOST, host);
+				ApplicationSettingsController.INSTANCE.setSetting(Setting.PORT, port);
+
+				TWSConnectionClientService.INSTANCE.connect(ApplicationSettingsController.INSTANCE.getProperties(), new ConnectionListener() {
+					@Override
+					public void success() {
+						DashboardController.INSTANCE.show();
+					}
+					@Override
+					public void failure(Throwable t) {
+						ErrorController.INSTANCE.displayError(new Error("Authentication Error", 
+								"Could not successfully authenticate", ""));
+					}
+				});
 			}
 			@Override
 			public void onCancel() {
