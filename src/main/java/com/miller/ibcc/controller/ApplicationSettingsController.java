@@ -2,8 +2,7 @@ package com.miller.ibcc.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
@@ -13,7 +12,7 @@ public enum ApplicationSettingsController {
 	
 	private File SETTINGSFILE;
 	
-	private Map<Setting, Object> settings = new HashMap<Setting, Object>();
+	private Properties settings = new Properties();
 	private Logger logger = Logger.getLogger(ApplicationSettingsController.class);
 	
 	private ApplicationSettingsController() {
@@ -40,8 +39,8 @@ public enum ApplicationSettingsController {
 	private void read() {
 		logger.info("Reading settings file");
 		//TODO read the settings from somewher
-		settings.put(Setting.CLIENT_ID, "123456");
-		settings.put(Setting.HOST, "localhost");
+		settings.put(Setting.CLIENT_ID, "0");
+		settings.put(Setting.HOST, "127.0.0.1");
 		settings.put(Setting.PORT, "7496");
 	}
 	
@@ -55,6 +54,10 @@ public enum ApplicationSettingsController {
 	
 	public String getSetting(Setting setting) {
 		return String.valueOf(settings.get(setting));
+	}
+	
+	public Properties getProperties() {
+		return settings;
 	}
 	
 	public int getSettingAsInt(Setting setting) {
