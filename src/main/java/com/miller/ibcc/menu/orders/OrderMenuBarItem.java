@@ -23,6 +23,7 @@ public enum OrderMenuBarItem implements MenuBarItem {
 	@Override
 	public void onAction() {
 		logger.info("User clicked order option");
+		
 	}
 
 }
