@@ -5,6 +5,6 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-<children><Label fx:id="lblErrorName" layoutX="171.0" layoutY="66.5" prefHeight="17.0" prefWidth="318.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" /><Label fx:id="lblErrorMessage" layoutX="36.0" layoutY="68.0" prefHeight="263.0" prefWidth="530.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="80.0" />
+<children><Label fx:id="lblErrorHeader" alignment="CENTER" layoutX="171.0" layoutY="66.5" prefHeight="17.0" prefWidth="318.0" text="Header" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" /><Label fx:id="lblErrorDescription" alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="68.0" prefHeight="263.0" prefWidth="530.0" text="Description" wrapText="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="80.0" />
 </children>
 </AnchorPane>
