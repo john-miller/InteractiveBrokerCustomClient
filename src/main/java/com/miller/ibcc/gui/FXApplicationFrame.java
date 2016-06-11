@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -95,6 +96,8 @@ public enum FXApplicationFrame implements ApplicationFrame {
 				menuBar.getMenus().add(optionsMenu);
 				scene = new Scene(pane);
 				scene.getStylesheets().add(FXApplicationFrame.class.getResource("/css/default-style.css").toExternalForm());
+				primaryStage.getIcons().add(new Image(FXApplicationFrame.class.getResourceAsStream("/images/icon.png")));
+				primaryStage.setTitle("Custom Interactive Broker Client");
 				primaryStage.setScene(scene);
 				primaryStage.show();
 			}
