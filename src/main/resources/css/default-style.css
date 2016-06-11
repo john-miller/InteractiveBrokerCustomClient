@@ -4,6 +4,12 @@
 	-fx-effect: dropshadow(three-pass-box, black, 2, 0, 0, 0);
 }
 
+.menu-bar:hover { 
+	-fx-padding: 5px;
+	-fx-background-color: #3b679e;
+	-fx-effect: dropshadow(three-pass-box, white, 5, 0, 0, 0);
+}
+
 .menu {
 	-fx-padding: 5px;	
 	-fx-margin: 15px;
@@ -52,6 +58,26 @@
 
 #loginFormContainer {
 
+}
+
+#lblErrorHeader {
+	-fx-font-size: 2.2em;	
+	-fx-text-fill: #dadada;
+	-fx-effect: dropshadow(three-pass-box, grey, 4, 0, 0, 0);
+}
+
+#lblErrorDescription {
+	-fx-font-size: 1.2em;	
+	-fx-text-fill: #dadada;
+	-fx-background-color: #808080;
+    -fx-background-insets: 2;
+    -fx-background-radius: 6;
+}
+
+#lblOrderFormHeader {
+	-fx-font-size: 2.2em;	
+	-fx-text-fill: #dadada;
+	-fx-effect: dropshadow(three-pass-box, grey, 4, 0, 0, 0);
 }
 
 TextField {
