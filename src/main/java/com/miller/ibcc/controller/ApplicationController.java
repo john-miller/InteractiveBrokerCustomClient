@@ -12,7 +12,7 @@ public enum ApplicationController {
 	private Logger logger = Logger.getLogger(ApplicationController.class);
 	
 	private ApplicationController() {
-		
+		logger.info("Creating application controller");
 	}
 	
 	public void shutdown() {
