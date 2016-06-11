@@ -22,10 +22,10 @@ public enum FXErrorForm implements ErrorForm {
 	private AnchorPane anchorPane;
 	
 	@FXML
-	private Label lblErrorName;
+	private Label lblErrorHeader;
 	
 	@FXML
-	private Label lblErrorMessage;
+	private Label lblErrorDescription;
 	
 	private Logger logger = Logger.getLogger(FXErrorForm.class);	
 	private StringProperty propErrorName = new SimpleStringProperty();
@@ -36,8 +36,8 @@ public enum FXErrorForm implements ErrorForm {
 			FXMLLoader loader = new FXMLLoader(FXApplicationFrame.class.getResource("/fxml/error-form.fxml"));
 			loader.setController(this);
 			anchorPane = loader.load();
-			lblErrorName.textProperty().bindBidirectional(propErrorName);
-			lblErrorMessage.textProperty().bindBidirectional(propErrorMessage);
+			lblErrorHeader.textProperty().bindBidirectional(propErrorName);
+			lblErrorDescription.textProperty().bindBidirectional(propErrorMessage);
 		} catch (IOException e) {
 			logger.error("Could not load FXML document", e);
 		} catch(IllegalStateException e) {
